@@ -9,28 +9,24 @@ export default function MapComponent() {
 
     useEffect(() => {
         // The svg
-        var svg = d3.select(ref.current),
-            width = +svg.attr("width"),
-            height = +svg.attr("height");
+        var svg = d3.select(ref.current)
+        const map = document.getElementById('map')
+        const widthStr = window.getComputedStyle(map).width
+        let width = +(widthStr.slice(0, widthStr.length -2))
 
-        console.log(width, height)
+        const height = +svg.attr("height");
+
         // Map and projection
 
         var projection = d3.geoMercator()
             .center([0, 20])                // GPS of location to zoom on
-            .scale(99)                       // This is like the zoom
+            .scale(120)                       // This is like the zoom
             .translate([width / 2, height / 2])
 
         Promise.all([
             d3.json("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson"),  // World shape
-            d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/data_gpsLocSurfer.csv")
-            // d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world_population.csv", (d) => {
-            //     data.set(d.code, +d.pop);
-            //     return d;
-            // }) // Position of circles
+            d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/data_gpsLocSurfer.csv") // Position of circles
         ]).then(([data1, data2]) => {
-            console.log("data1: ", data1)
-            console.log('data2: ', data2)
             ready(data1, data2);
         })
 
@@ -43,7 +39,7 @@ export default function MapComponent() {
 
             // Create a color scale
             var allContinent = d3.map(data, function (d) { return (d.homecontinent) }).keys()
-            console.log(allContinent)
+            console.dir(allContinent)
             var color = d3.scaleOrdinal()
                 .domain(allContinent)
                 .range(d3.schemePaired);
@@ -75,13 +71,12 @@ export default function MapComponent() {
                 .append("circle")
                 .attr("cx", function (d) { return projection([+d.homelon, +d.homelat])[0] })
                 .attr("cy", function (d) { return projection([+d.homelon, +d.homelat])[1] })
-                .attr("r", function (d) { return size(+d.n) })
+                // .attr("r", function (d) { return size(+d.n) })
+                .attr("r", function (d) { return size(5) })
                 .style("fill", function (d) { return color(d.homecontinent) })
-                .attr("stroke", function (d) { if (d.n > 2000) { return "black" } else { return "none" } })
-                .attr("stroke-width", 1)
+                // .attr("stroke", function (d) { if (d.n > 2000) { return "black" } else { return "none" } })
+                // .attr("stroke-width", 1)
                 .attr("fill-opacity", .4)
-
-
 
             // Add title and explanation
             svg
@@ -93,58 +88,13 @@ export default function MapComponent() {
                 .attr("width", 90)
                 .html("Twitter Sentiment Analysis")
                 .style("font-size", 14)
-
-
-            // --------------- //
-            // ADD LEGEND //
-            // --------------- //
-
-            // Add legend: circles
-            var valuesToShow = [100, 4000, 15000]
-            var xCircle = 40
-            var xLabel = 90
-            svg
-                .selectAll("legend")
-                .data(valuesToShow)
-                .enter()
-                .append("circle")
-                .attr("cx", xCircle)
-                .attr("cy", function (d) { return height - size(d) })
-                .attr("r", function (d) { return size(d) })
-                .style("fill", "none")
-                .attr("stroke", "black")
-
-            // Add legend: segments
-            svg
-                .selectAll("legend")
-                .data(valuesToShow)
-                .enter()
-                .append("line")
-                .attr('x1', function (d) { return xCircle + size(d) })
-                .attr('x2', xLabel)
-                .attr('y1', function (d) { return height - size(d) })
-                .attr('y2', function (d) { return height - size(d) })
-                .attr('stroke', 'black')
-                .style('stroke-dasharray', ('2,2'))
-
-            // Add legend: labels
-            svg
-                .selectAll("legend")
-                .data(valuesToShow)
-                .enter()
-                .append("text")
-                .attr('x', xLabel)
-                .attr('y', function (d) { return height - size(d) })
-                .text(function (d) { return d })
-                .style("font-size", 10)
-                .attr('alignment-baseline', 'middle')
         }
     })
 
 
     return (
         <div className="map-wrapper">
-            <svg id="map" ref={ref} width="630" height="350" ></svg>
+            <svg id="map" ref={ref} height="350" ></svg>
         </div>
     )
 }
