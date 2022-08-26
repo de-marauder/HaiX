@@ -1,0 +1,2 @@
+# HaiX
+Internship Recruitment Assignments
