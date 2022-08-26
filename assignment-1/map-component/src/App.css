@@ -1,0 +1,25 @@
+.map-wrapper {
+  display: grid;
+  place-content: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: #00ffd31c;
+}
+
+#map {
+  padding: 1rem;
+  height: 500px;
+  display: block;
+  margin: auto;
+  box-shadow: 0 0 10px #333;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.Country {
+  fill: #b8b8b8
+}
+
+#map .Country:hover {
+  fill: #00ffd52d !important;
+}
