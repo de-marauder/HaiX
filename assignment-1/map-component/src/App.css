@@ -3,17 +3,17 @@
   place-items: center;
   width: 100vw;
   height: 100vh;
-  background-color: #00ffd31c;
+  background-color: #ffffff;
 }
 
 #map {
   padding: 1rem;
   height: 500px;
-  width: 100%;
+  width: 90%;
   max-width: 900px;
   display: block;
   margin: auto;
-  box-shadow: 0 0 10px #333;
+  box-shadow: 0 0 3px #333;
   border-radius: 1rem;
   overflow: hidden;
 }
@@ -24,4 +24,15 @@
 
 #map .Country:hover {
   fill: #00ffd52d !important;
+}
+
+.circle {
+  stroke: #333;
+}
+
+svg .text {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  fill: black;
+  stroke-width: 0;
 }

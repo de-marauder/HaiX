@@ -21,10 +21,10 @@ export default function MapComponent() {
 
             // The svg
             var svg = d3.select(ref.current)
-            // const map = document.getElementById('map')
-            // const widthStr = window.getComputedStyle(map).width
-            // let width = +(widthStr.slice(0, widthStr.length - 2))
-            let width = 600
+            const map = document.getElementById('map')
+            const widthStr = window.getComputedStyle(map).width
+            let width = +(widthStr.slice(0, widthStr.length - 2))
+            // let width = 600
 
             const height = +svg.attr("height");
 
@@ -75,7 +75,14 @@ export default function MapComponent() {
                     .style("stroke", "#333")
                     .style("opacity", .3)
                     .append("text")
-                    .text((d) => { return d.id })
+                    .attr("text-anchor", "end")
+                    .style("fill", "black")
+                    .attr("x", 10)
+                    .attr("y", 30)
+                    // .attr("width", 90)
+                    .style("font-size", 14)
+                    .classed("text", true)
+                    .html((d) => { return d.id })
 
                 // Add circles:
                 svg
@@ -94,16 +101,21 @@ export default function MapComponent() {
                     // .attr("stroke-width", 1)
                     .attr("fill-opacity", .4)
                     .append("text")
-                    .text((d) => { return d.location })
+                    .attr("text-anchor", "end")
+                    .style("fill", "black")
+                    .attr("x", width - 10)
+                    .attr("y", height - 30)
+                    .attr("width", 90)
+                    .style("font-size", 14)
+                    .html((d) => { return d.location })
 
-                // circleNode
-                //     .selectAll("circle")
-                //     .append("text")
+                
                 // Add title and explanation
                 svg
                     .append("text")
                     .attr("text-anchor", "end")
                     .style("fill", "black")
+                    .attr("class", "map-desc")
                     .attr("x", width - 10)
                     .attr("y", height - 30)
                     .attr("width", 90)
