@@ -1,13 +1,14 @@
 import tweetData from '../assets/tweets data.json'
 import countryGeodata from '../assets/country_geodata/world_country_and_usa_states_latitude_and_longitude_values.json'
 
-
+// Get country name dataset
 export const getCountries = async () => {
     const proxyURL = 'https://still-lake-77123.herokuapp.com/'
     const targetURL = 'http://country.io/names.json'
     const data = await (await fetch(proxyURL + targetURL)).json();
     return data;
 }
+// Get country code dataset
 export const getCountriesCodes = async () => {
     const proxyURL = 'https://still-lake-77123.herokuapp.com/'
     const targetURL = 'http://country.io/iso3.json'
@@ -42,6 +43,7 @@ export const cleanData = (countries, countriesCode) => {
             )
         );
     })
+    
     const filteredDataLocations = filteredData.map((item) => {
         return item.locationCode
     })

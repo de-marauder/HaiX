@@ -36,3 +36,27 @@ svg .text {
   fill: black;
   stroke-width: 0;
 }
+
+.leaflet-container {
+  height: 500px;
+  width: 90%;
+  margin: auto;
+  margin-top: 5rem;
+  border-radius: 1rem;
+  box-shadow: 0 0 5px #333;
+}
+
+.sentiment-marker {
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+}
+.sentiment-marker.bad {
+  background-color: red;
+}
+.sentiment-marker.neutral {
+  background-color: orange;
+}
+.sentiment-marker.good {
+  background-color: greenyellow;
+}
