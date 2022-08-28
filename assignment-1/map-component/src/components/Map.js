@@ -33,10 +33,11 @@ export default function MapComponent() {
             const countries = await getCountries()
             const countriesCode = await getCountriesCodes()
 
+            // const [locationCountList, tweetData] = await cleanData(countries, countriesCode)
             const [locationCountList, tweetData] = await cleanData(countries, countriesCode)
             setTweetData(tweetData)
-            console.log(locationCountList)
-            console.log(tweetData)
+            // console.log(locationCountList)
+            // console.log(tweetData)
             setCoordinates(locationCountList)
         })();
 

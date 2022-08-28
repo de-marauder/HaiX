@@ -30,7 +30,6 @@ export default function Modal(props) {
                 </div>
                 <div className='tweets'>
                     {validTweets.map((item, id) => {
-                        console.log(item)
                         return (
                             <div key={id} className="tweet">
                                 <div className='tweet-title'>

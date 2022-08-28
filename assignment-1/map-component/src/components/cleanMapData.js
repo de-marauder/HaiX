@@ -1,5 +1,5 @@
-// import tweetData from '../assets/tweets data.json'
-// import countryGeodata from '../assets/country_geodata/world_country_and_usa_states_latitude_and_longitude_values.json'
+import tweetData from '../assets/tweets data.json'
+import countryGeodata from '../assets/country_geodata/world_country_and_usa_states_latitude_and_longitude_values.json'
 
 // Get country name dataset
 export const getCountries = async () => {
@@ -22,12 +22,13 @@ export const getCountriesCodes = async () => {
 
 export const cleanData = async (countries, countriesCode) => {
 
-    let tweetData = await fetch('../assets/tweets data.json').then((data) => {return data.json()})
-    console.log(tweetData)
-    let countryGeodata = await fetch('../assets/country_geodata/world_country_and_usa_states_latitude_and_longitude_values.json').then((data) => {return data.json()})
+    // Fetch tweets
+    // let tweetData = await fetch('../assets/tweets data.json').then((data) => {return data.json()})
+    // console.log(tweetData)
+    // // Fetch country geodata
+    // let countryGeodata = await fetch('../assets/country_geodata/world_country_and_usa_states_latitude_and_longitude_values.json').then((data) => {return data.json()})
 
     // Clean tweetData json (filter out junk countries and sentiments)
-
     const countryList = Object.keys(countries).map((el, id) => {
         return {
             code2: el,
@@ -56,11 +57,12 @@ export const cleanData = async (countries, countriesCode) => {
     const filteredDataLocations = filteredData.map((item) => {
         return item.locationCode
     })
-    console.log(filteredDataLocations)
+    // console.log(filteredDataLocations)
 
     // Reshape tweets data
     let locationCountList = []
 
+    // Identify unique items in the filtered list and count there number of occurence. Store their sentiments as an array to be reduced later
     for (let [key, filteredDataLocation] of Object.entries(filteredDataLocations)) {
         if (locationCountList.length === 0) {
             countryList.find((d) => {
@@ -96,6 +98,7 @@ export const cleanData = async (countries, countriesCode) => {
         }
     }
 
+    // Calculate average of sentiments.
     locationCountList = locationCountList.map((item) => {
         return {
             ...item,
@@ -104,7 +107,7 @@ export const cleanData = async (countries, countriesCode) => {
             }, 0)) / item.average.length
         }
     })
-    console.log(locationCountList)
+    // console.log(locationCountList)
 
     return [locationCountList, filteredData]
 }
