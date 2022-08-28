@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 
-import { MapContainer, TileLayer, Popup, Circle, FeatureGroup } from 'react-leaflet'
+import { MapContainer, TileLayer, Popup, FeatureGroup, CircleMarker } from 'react-leaflet'
 import L from 'leaflet';
 
 import "leaflet/dist/leaflet.css";
@@ -20,7 +20,6 @@ L.Icon.Default.mergeOptions({
 
 export default function MapComponent() {
 
-    // const ref = useRef();
     const [coordinates, setCoordinates] = useState([]);
     const [modalActive, setModal] = useState(false);
 
@@ -50,18 +49,18 @@ export default function MapComponent() {
 
     // console.log(coordinates)
 
-    const fillRedOptions = { fillColor: 'red', color: 'red' }
-    const fillGreenOptions = { color: 'green', fillColor: 'green' }
-    const fillOrangeOptions = { color: 'orange', fillColor: 'orange' }
+    const fillRedOptions = { fillColor: 'red', color: 'red', strokeWidth: '2px' }
+    const fillGreenOptions = { color: 'green', fillColor: 'green', strokeWidth: '2px' }
+    const fillOrangeOptions = { color: 'orange', fillColor: 'orange', strokeWidth: '2px' }
 
     const center = [51.505, -0.09]
     return (
         <>
             {modalActive ? <Modal tweetLocation={tweetLocation} avTweetDetails={coordinates} tweetData={tweetData} modalActive={modalActive} setModal={setModal} /> : null}
-            <MapContainer center={center} zoom={2} scrollWheelZoom={false}>
+            <MapContainer center={center} zoom={2} scrollWheelZoom={true}>
                 <TileLayer
-                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                    attribution='&copy; <a href="https://carto.com/">carto.com</a> contributors'
+                    url='https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png'
                 />
 
                 {coordinates.map((item, id) => {
@@ -82,8 +81,8 @@ export default function MapComponent() {
                                     }</p>
                                 </div>
                             </Popup>
-                            <Circle
-                                radius={item.count}
+                            <CircleMarker
+                                radius={item.count * 1.5}
                                 center={[item.latitude, item.longitude]}
                                 pathOptions={
                                     (item.average >= -1 && item.average < -0.5) ?
