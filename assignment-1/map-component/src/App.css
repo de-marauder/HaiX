@@ -38,11 +38,8 @@ svg .text {
 }
 
 .leaflet-container {
-  height: 500px;
-  width: 90%;
-  margin: auto;
-  margin-top: 5rem;
-  border-radius: 1rem;
+  height: 100vh;
+  width: 100%;
   box-shadow: 0 0 5px #333;
 }
 
@@ -50,13 +47,153 @@ svg .text {
   width: 10px;
   height: 10px;
   display: inline-block;
+  border-radius: 50%;
+  margin-left: 1rem;
+  
 }
+
+.sentiment-marker.big {
+  width: 20px;
+  height: 20px;
+}
+
 .sentiment-marker.bad {
   background-color: red;
 }
+.sentiment-marker.bad + .sentiment-marker-text {
+  color: hsl(0, 100%, 30%);
+}
+
 .sentiment-marker.neutral {
   background-color: orange;
 }
+.sentiment-marker.neutral + .sentiment-marker-text {
+  color: hsl(39, 100%, 30%);
+}
+
 .sentiment-marker.good {
   background-color: greenyellow;
+}
+.sentiment-marker.good + .sentiment-marker-text {
+  color: hsl(84, 100%, 39%);
+}
+
+.sentiment-marker + .sentiment-marker-text {
+  font-size: .8rem;
+  margin-left: 1rem;
+}
+
+.modal-wrapper {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 10000;
+  display: grid;
+  place-items: center;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(51, 51, 51, 0.404);
+}
+
+.modal {
+  position: relative;
+  width: 90%;
+  max-width: 600px;
+  min-height: 200px;
+  max-height: 500px;
+  background-color: #eee;
+  border-radius: 10px;
+  padding: 1rem;
+}
+
+.title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.1rem;
+}
+
+.title h2 {
+  font-size: 1.4rem;
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+}
+
+.title-sentiment {
+  position: relative;
+  right: 1rem;
+}
+
+@media screen and (max-width: 500px) {
+  .title h2 {
+    font-size: 1.2rem
+  }
+}
+
+
+.tweets {
+  overflow-y: scroll;
+  height: 200px;
+  box-shadow: inset 0 0 5px #333;
+}
+
+.tweet {
+  padding: 1rem;
+  font-size: .9rem;
+  box-shadow: 0 0 3px #333;
+  margin: 1rem;
+}
+
+.tweet span {
+  color: #70b9f5;
+  cursor: pointer
+}
+
+.tweet span:hover {
+  color: hsl(207, 87%, 60%)
+}
+
+.tweet-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+.tweet-title > div {
+  display: flex;
+  align-items: center;
+}
+.profile-image {
+  margin-right: 1rem;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.profile-image img {
+  width: 100%;
+  height: 100%;
+}
+.date { 
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: .8rem;
+  color: #aaa;
+}
+
+.date span {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
