@@ -1,7 +1,29 @@
-import tweetData from '../assets/tweets data.json'
-import citiesGeodata from '../assets/world_cities.json'
+// import tweetData from '../assets/tweets data.json'
+// import citiesGeodata from '../assets/world_cities.json'
+
 
 export const cleanData = async () => {
+    const tweetData = await fetch('json/tweets data.json', {
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        }
+    }).then((data) => {
+        return data.json()
+    })
+    const citiesGeodata = await fetch('json/world_cities.json', {
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        }
+    }).then((data) => {
+        return data.json()
+    })
+
+    const iso2List = citiesGeodata.map((item) => { return item?.iso2.toUpperCase() })
+    const iso3List = citiesGeodata.map((item) => { return item?.iso3.toUpperCase() })
+    const cityList = citiesGeodata.map((item) => { return item?.city.toUpperCase() })
+    const countryList = citiesGeodata.map((item) => { return item?.country.toUpperCase() })
 
     // Filter tweets
     var filteredData = tweetData.data.twitter.data.filter((data) => {
@@ -9,10 +31,10 @@ export const cleanData = async () => {
         return (
             data.location !== '' &&
             (// Check if any word in the tweet location string is a valid country using four checks against '2 character country acronyms', '3 character country acronyms', 'country name', & 'city name' and introduce a new parameter 'locationCode' into the tweets object to contain the country
-                data.location.split(', ').map((el) => { return citiesGeodata.map((item) => { return item?.iso2.toUpperCase() }).includes(el?.toUpperCase()) }).map((bool, id) => { if (bool) { data.locationCode = citiesGeodata.find((co) => co.iso2 === data.location.split(', ')[id])?.city }; return bool ? 1 : 0 }).reduce((a, b) => { return a + b }) ||
-                data.location.split(', ').map((el) => { return citiesGeodata.map((item) => { return item?.iso3.toUpperCase() }).includes(el?.toUpperCase()) }).map((bool, id) => { if (bool) { data.locationCode = citiesGeodata.find((co) => co.iso3 === data.location.split(', ')[id])?.city }; return bool ? 1 : 0 }).reduce((a, b) => { return a + b }) ||
-                data.location.split(', ').map((el) => { return citiesGeodata.map((item) => { return item?.city.toUpperCase() }).includes(el?.toUpperCase()) }).map((bool, id) => { if (bool) { data.locationCode = citiesGeodata.find((co) => co.city === data.location.split(', ')[id])?.city }; return bool ? 1 : 0 }).reduce((a, b) => { return a + b }) ||
-                data.location.split(', ').map((el) => { return citiesGeodata.map((item) => { return item?.country.toUpperCase() }).includes(el?.toUpperCase()) }).map((bool, id) => { if (bool) { data.locationCode = citiesGeodata.find((co) => co.country === data.location.split(', ')[id])?.city }; return bool ? 1 : 0 }).reduce((a, b) => { return a + b })
+                data.location.split(', ').map((el) => { return iso2List.includes(el?.toUpperCase()) }).map((bool, id) => { if (bool) { data.locationCode = citiesGeodata.find((co) => co.iso2 === data.location.split(', ')[id])?.city }; return bool ? 1 : 0 }).reduce((a, b) => { return a + b }) ||
+                data.location.split(', ').map((el) => { return iso3List.includes(el?.toUpperCase()) }).map((bool, id) => { if (bool) { data.locationCode = citiesGeodata.find((co) => co.iso3 === data.location.split(', ')[id])?.city }; return bool ? 1 : 0 }).reduce((a, b) => { return a + b }) ||
+                data.location.split(', ').map((el) => { return cityList.includes(el?.toUpperCase()) }).map((bool, id) => { if (bool) { data.locationCode = citiesGeodata.find((co) => co.city === data.location.split(', ')[id])?.city }; return bool ? 1 : 0 }).reduce((a, b) => { return a + b }) ||
+                data.location.split(', ').map((el) => { return countryList.includes(el?.toUpperCase()) }).map((bool, id) => { if (bool) { data.locationCode = citiesGeodata.find((co) => co.country === data.location.split(', ')[id])?.city }; return bool ? 1 : 0 }).reduce((a, b) => { return a + b })
             )
         );
     })
@@ -26,7 +48,7 @@ export const cleanData = async () => {
 
     // Identify unique items in the filtered list and count there number of occurence. Store their sentiment polarity as an array to be reduced later
     for (let [key, filteredDataLocation] of Object.entries(filteredDataLocations)) {
-        
+
         // If locationList is empty, add and object and continue along the loop
         if (locationCountList.length === 0) {
             citiesGeodata.find((d) => {

@@ -1,0 +1,104 @@
+.map-container {
+  --g: 147, 99%, 69%;
+  --n: 46, 99%, 69%;
+  --b: 6, 100%, 92%;
+
+  --tooltip-opacity: 0.5;
+  --tooltip-border-width: 1px;
+
+  --sentiment-good-bg: hsl(147, 99%, 69%);
+  --sentiment-neutral-bg: hsl(46, 99%, 69%);
+  --sentiment-bad-bg: hsl(6, 100%, 92%);
+  --sentiment-good-text: hsl(149, 100%, 6%);
+  --sentiment-neutral-text: hsl(49, 100%, 26%);
+  --sentiment-bad-text: hsl(358, 100%, 13%);
+
+  --link-blue: hsl(207, 87%, 60%);
+  --link-blue-hover: hsl(207, 87%, 50%)
+}
+
+a {
+  color: none;
+  text-decoration: none;
+}
+
+.leaflet-container {
+  height: 100vh;
+  width: 100%;
+  box-shadow: 0 0 5px #333;
+}
+
+.leaflet-interactive {
+  stroke-width: 1px;
+}
+
+// Bad sentiment
+.bad .leaflet-popup-tip,
+.bad {
+  background-color: var(--sentiment-bad-bg);
+}
+
+.bad.leaflet-popup.tooltip {
+  background-color: hsla(var(--b), var(--tooltip-opacity));
+}
+
+.bad,
+.bad .leaflet-popup-tip {
+  color: var(--sentiment-bad-text);
+  border: var(--tooltip-border-width) var(--sentiment-bad-text) solid;
+}
+
+// Neutral sentiment
+.neutral .leaflet-popup-tip,
+.neutral {
+  background-color: var(--sentiment-neutral-bg);
+}
+
+.neutral.leaflet-popup.tooltip {
+  background-color: hsla(var(--n), var(--tooltip-opacity));
+}
+
+.neutral,
+.neutral .leaflet-popup-tip {
+  color: var(--sentiment-neutral-text);
+  border: var(--tooltip-border-width) var(--sentiment-neutral-text) solid;
+}
+
+// Good sentiment
+.good .leaflet-popup-tip,
+.good {
+  background-color: var(--sentiment-good-bg);
+}
+
+.good.leaflet-popup.tooltip {
+  background-color: hsla(var(--g), var(--tooltip-opacity));
+}
+
+.good,
+.good .leaflet-popup-tip {
+  color: var(--sentiment-good-text);
+  border: var(--tooltip-border-width) var(--sentiment-good-text) solid;
+}
+
+.leaflet-popup.tooltip {
+  cursor: pointer;
+  border-radius: 12px;
+}
+
+.bad .leaflet-popup-content-wrapper,
+.neutral .leaflet-popup-content-wrapper,
+.good .leaflet-popup-content-wrapper {
+  background-color: inherit;
+  color: inherit;
+}
+
+
+@keyframes scale-up {
+  from {
+    transform: scale(0.1);
+  }
+
+  to {
+    transform: scale(1);
+  }
+}
