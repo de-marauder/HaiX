@@ -92,13 +92,15 @@ a {
   color: inherit;
 }
 
+.react-draggable {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 10000;
+  // transform: scale(.6);
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
 
-@keyframes scale-up {
-  from {
-    transform: scale(0.1);
-  }
-
-  to {
-    transform: scale(1);
-  }
+.move_forward {
+  z-index: 100000 !important;
 }
