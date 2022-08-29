@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 
 import { MapContainer, TileLayer, Popup, FeatureGroup, CircleMarker } from 'react-leaflet'
 import L from 'leaflet';
@@ -10,13 +10,13 @@ import Modal from '../Modal/modal'
 import classes from './Map.module.scss'
 
 
-delete L.Icon.Default.prototype._getIconUrl;
+// delete L.Icon.Default.prototype._getIconUrl;
 
-L.Icon.Default.mergeOptions({
-    iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
-    iconUrl: require('leaflet/dist/images/marker-icon.png'),
-    shadowUrl: require('leaflet/dist/images/marker-shadow.png')
-});
+// L.Icon.Default.mergeOptions({
+//     iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
+//     iconUrl: require('leaflet/dist/images/marker-icon.png'),
+//     shadowUrl: require('leaflet/dist/images/marker-shadow.png')
+// });
 
 var southWest = L.latLng(-90, 180),
     northEast = L.latLng(90, -180),
@@ -28,7 +28,10 @@ export default function MapComponent() {
     const [modalActive, setModal] = useState(false);
 
     const [tweetData, setTweetData] = useState({});
-    const [tweetLocation, setTweetLocation] = useState('');
+    // const [tweetLocation, setTweetLocation] = useState('');
+
+    const [modalList, setModalList] = useState([]);
+    // const modalList = useRef([]);
 
     useEffect(() => {
 
@@ -38,11 +41,20 @@ export default function MapComponent() {
             setCoordinates(locationCountList)
         })();
 
-    }, [])
+    }, [modalList])
 
     const showModal = (code) => {
-        setModal(!modalActive)
-        setTweetLocation(code)
+        // setModal(true);
+        // setTweetLocation(code);
+
+        setModalList([...modalList, code])
+        // modalList.current.push(code)
+    }
+    const closeModal = (code) => {
+        // setModal(false)
+        // setTweetLocation(code)
+        // modalList.current = modalList.current.filter((el)=>code!==el)
+        setModalList([...modalList].filter((el)=>code!==el))
     }
 
     const selectSentiment = (item, pos, neu, neg) => {
@@ -61,7 +73,12 @@ export default function MapComponent() {
     const center = [51.505, -0.09]
     return (
         <div className='map-container'>
-            {modalActive ? <Modal tweetLocation={tweetLocation} avTweetDetails={coordinates} tweetData={tweetData} modalActive={modalActive} setModal={setModal} /> : null}
+            {modalList.map((code, id) => {
+                // return modalActive ? 
+                return <Modal key={id} tweetLocation={code} avTweetDetails={coordinates} tweetData={tweetData} modalActive={modalActive} setModal={setModal} closeModal={()=>closeModal(code)} />
+                //  : null
+            })
+            }
             <MapContainer center={center} zoom={4} scrollWheelZoom={true} maxBounds={bounds} maxZoom={19} minZoom={2.5}>
                 <TileLayer
                     noWrap={true}
