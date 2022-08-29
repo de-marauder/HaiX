@@ -1,32 +1,27 @@
 {
   "name": "map-component",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/react": "^13.3.0",
-    "@testing-library/user-event": "^13.5.0",
-    "d3": "^7.6.1",
-    "leaflet": "^1.8.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-icons": "^4.4.0",
-    "react-leaflet": "^4.0.2",
-    "react-scripts": "5.0.1",
-    "sass": "^1.54.5",
-    "web-vitals": "^2.1.4"
-  },
+  "version": "1.0.0",
+  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
+  "main": "index.js",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+  "author": "de-marauder",
+  "license": "ISC",
+  "dependencies": {
+    "leaflet": "^1.7.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-icons": "^4.4.0",
+    "react-leaflet": "^3.2.5",
+    "react-scripts": "^5.0.1",
+    "sass": "^1.54.5",
+    "web-vitals": "^3.0.0"
+  },
+  "overrides": {
+    "autoprefixer": "10.4.5"
   },
   "browserslist": {
     "production": [
