@@ -2,12 +2,11 @@ import React, { useState, useEffect } from 'react'
 
 import { MapContainer, TileLayer, Popup, FeatureGroup, CircleMarker } from 'react-leaflet'
 import L from 'leaflet';
-
 import "leaflet/dist/leaflet.css";
 
 import { cleanData } from '../util/cleanMapData';
-
 import Modal from './modal'
+
 
 
 delete L.Icon.Default.prototype._getIconUrl;
@@ -17,8 +16,7 @@ L.Icon.Default.mergeOptions({
     iconUrl: require('leaflet/dist/images/marker-icon.png'),
     shadowUrl: require('leaflet/dist/images/marker-shadow.png')
 });
-// var southWest = L.latLng(40.712, -74.227),
-//     northEast = L.latLng(40.774, -74.125),
+
 var southWest = L.latLng(-90, 180),
     northEast = L.latLng(90, -180),
     bounds = L.latLngBounds(southWest, northEast);
@@ -34,14 +32,8 @@ export default function MapComponent() {
     useEffect(() => {
 
         (async () => {
-            // const countries = await getCountries()
-            // const countriesCode = await getCountriesCodes()
-
-            // const [locationCountList, tweetData] = await cleanData(countries, countriesCode)
             const [locationCountList, tweetData] = await cleanData()
             setTweetData(tweetData)
-            // console.log(locationCountList)
-            // console.log(tweetData)
             setCoordinates(locationCountList)
         })();
 
@@ -51,8 +43,6 @@ export default function MapComponent() {
         setModal(!modalActive)
         setTweetLocation(code)
     }
-
-    // console.log(coordinates)
 
     const fillRedOptions = { fillColor: 'red', color: 'red', strokeWidth: '2px' }
     const fillGreenOptions = { color: 'green', fillColor: 'green', strokeWidth: '2px' }
