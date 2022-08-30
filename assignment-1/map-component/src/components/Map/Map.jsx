@@ -10,14 +10,6 @@ import Modal from '../Modal/modal'
 import classes from './Map.module.scss'
 
 
-// delete L.Icon.Default.prototype._getIconUrl;
-
-// L.Icon.Default.mergeOptions({
-//     iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
-//     iconUrl: require('leaflet/dist/images/marker-icon.png'),
-//     shadowUrl: require('leaflet/dist/images/marker-shadow.png')
-// });
-
 var southWest = L.latLng(-90, 180),
     northEast = L.latLng(90, -180),
     bounds = L.latLngBounds(southWest, northEast);
@@ -25,13 +17,10 @@ var southWest = L.latLng(-90, 180),
 export default function MapComponent() {
 
     const [coordinates, setCoordinates] = useState([]);
-    const [modalActive, setModal] = useState(false);
 
     const [tweetData, setTweetData] = useState({});
-    // const [tweetLocation, setTweetLocation] = useState('');
 
     const [modalList, setModalList] = useState([]);
-    // const modalList = useRef([]);
 
     useEffect(() => {
 
@@ -44,17 +33,11 @@ export default function MapComponent() {
     }, [modalList])
 
     const showModal = (code) => {
-        // setModal(true);
-        // setTweetLocation(code);
-
         setModalList([...modalList, code])
-        // modalList.current.push(code)
     }
+
     const closeModal = (code) => {
-        // setModal(false)
-        // setTweetLocation(code)
-        // modalList.current = modalList.current.filter((el)=>code!==el)
-        setModalList([...modalList].filter((el)=>code!==el))
+        setModalList([...modalList].filter((el) => code !== el))
     }
 
     const selectSentiment = (item, pos, neu, neg) => {
@@ -74,9 +57,7 @@ export default function MapComponent() {
     return (
         <div className='map-container'>
             {modalList.map((code, id) => {
-                // return modalActive ? 
-                return <Modal key={id} tweetLocation={code} avTweetDetails={coordinates} tweetData={tweetData} modalActive={modalActive} setModal={setModal} closeModal={()=>closeModal(code)} />
-                //  : null
+                return <Modal key={id} tweetLocation={code} avTweetDetails={coordinates} tweetData={tweetData} closeModal={() => closeModal(code)} />
             })
             }
             <MapContainer center={center} zoom={4} scrollWheelZoom={true} maxBounds={bounds} maxZoom={19} minZoom={2.5}>

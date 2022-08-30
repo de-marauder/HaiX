@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef } from 'react'
 import { CgClose } from 'react-icons/cg'
 import Draggable from 'react-draggable';
 import Sentiment from '../Sentiment/sentiment';
